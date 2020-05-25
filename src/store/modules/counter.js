@@ -1,3 +1,5 @@
+import produce from 'immer';
+
 // 액션 타입 정의
 const CHANGE_COLOR = "counter/CHANGE_COLOR";
 const INCREMENT = "counter/INCREMENT";
@@ -18,20 +20,11 @@ const initialState = {
 export default function counter(state = initialState, action) {
   switch (action.type) {
     case CHANGE_COLOR:
-      return {
-        ...state,
-        color: action.color
-      };
+      return produce(state, draft => {draft.color= action.color});
     case INCREMENT:
-      return {
-        ...state,
-        number: state.number + 1
-      };
+      return produce(state, draft => {draft.number++; });
     case DECREMENT:
-      return {
-        ...state,
-        number: state.number - 1
-      };
+      return produce(state, draft => {draft.number--; });
     default:
       return state;
   }
